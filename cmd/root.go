@@ -1,6 +1,8 @@
 package cmd
 
 import (
+	"os"
+
 	"github.com/spf13/cobra"
 )
 
@@ -14,6 +16,16 @@ branching, etc., but with some key differences:
 - All commits must start with a Gitmoji (e.g., :sparkles:, ✨)
 - Built-in issue tracking (create, assign, close issues)
 - Gamification system where users earn points for contributions`,
+	Run: func(cmd *cobra.Command, args []string) {
+		// If version flag is set, print version and exit
+		if versionFlag, _ := cmd.Flags().GetBool("version"); versionFlag {
+			PrintVersion()
+			os.Exit(0)
+		}
+
+		// Otherwise, show help
+		cmd.Help()
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.

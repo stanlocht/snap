@@ -59,31 +59,58 @@ Once the web interface is running, you can access these features:
 - `snap config get <key>` – Get a configuration value (e.g., `user.name`)
 - `snap config set <key> <value>` – Set a configuration value (e.g., `user.name "Your Name"`)
 
-## Getting Started
+## Installation
 
-1. Build the application:
+### Using Go Install
+
+The easiest way to install Snap is using Go's install command:
+
+```
+go install github.com/stanlocht/snap@v0.0.1
+```
+
+This will download and install the Snap binary to your `$GOPATH/bin` directory. Make sure this directory is in your system's PATH to run Snap from anywhere.
+
+### Building from Source
+
+Alternatively, you can build from source:
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/stanlocht/snap.git
+   cd snap
+   ```
+
+2. Build the application:
    ```
    go build
    ```
 
-2. Initialize a new repository:
+3. Optionally, install it to your Go bin directory:
    ```
-   ./snap init
-   ```
-
-3. Add files to the staging area:
-   ```
-   ./snap add <file>
+   go install
    ```
 
-4. Commit changes (must start with a Snapmoji):
+## Getting Started
+
+1. Initialize a new repository:
    ```
-   ./snap commit -m "✨ Initial commit" -a "username"
+   snap init
    ```
 
-5. Check the status of your repository:
+2. Add files to the staging area:
    ```
-   ./snap status
+   snap add <file>
+   ```
+
+3. Commit changes (must start with a Snapmoji):
+   ```
+   snap commit -m "✨ Initial commit" -a "username"
+   ```
+
+4. Check the status of your repository:
+   ```
+   snap status
    ```
 
 ## Snapmoji Support
