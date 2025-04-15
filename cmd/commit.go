@@ -4,14 +4,16 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
+	"github.com/spf13/cobra"
+	"github.com/stanlocht/snap/pkg/config"
 	"github.com/stanlocht/snap/pkg/repository"
 	"github.com/stanlocht/snap/pkg/snapmoji"
 	"github.com/stanlocht/snap/pkg/storage"
 	"github.com/stanlocht/snap/pkg/user"
-	"github.com/spf13/cobra"
 )
 
 // commitCmd represents the commit command
@@ -104,9 +106,17 @@ All commit messages must start with a Snapmoji (e.g., :sparkles:, ✨).`,
 		// Get author name
 		authorName, _ := rootCmd.PersistentFlags().GetString("author")
 		if authorName == "" {
-			fmt.Fprintln(os.Stderr, "Error: author name is required")
-			fmt.Fprintln(os.Stderr, "Use --author (-a) to specify an author name")
-			os.Exit(1)
+			// Try to get author name from config
+			configPath := filepath.Join(repo.Path, ".snap", "config")
+			name, err := config.GetValue(configPath, "user.name")
+			if err == nil && name != "" {
+				authorName = name
+			} else {
+				fmt.Fprintln(os.Stderr, "Error: author name is required")
+				fmt.Fprintln(os.Stderr, "Use --author (-a) to specify an author name")
+				fmt.Fprintln(os.Stderr, "Or set a global name with: snap config set user.name \"Your Name\"")
+				os.Exit(1)
+			}
 		}
 
 		// Record user action
@@ -130,8 +140,18 @@ All commit messages must start with a Snapmoji (e.g., :sparkles:, ✨).`,
 			Entries: index.Entries,
 		}
 
-		// Create commit
+		// Get email
 		email, _ := rootCmd.PersistentFlags().GetString("email")
+		if email == "" {
+			// Try to get email from config
+			configPath := filepath.Join(repo.Path, ".snap", "config")
+			configEmail, err := config.GetValue(configPath, "user.email")
+			if err == nil && configEmail != "" {
+				email = configEmail
+			}
+		}
+
+		// Create commit
 		commit, err := repo.CreateCommit(message, authorName, email, tree)
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "Error creating commit: %v\n", err)

@@ -54,6 +54,11 @@ Once the web interface is running, you can access these features:
 - Users – See contributor stats
 - Quest – View your assigned issues
 
+### Configuration
+
+- `snap config get <key>` – Get a configuration value (e.g., `user.name`)
+- `snap config set <key> <value>` – Set a configuration value (e.g., `user.name "Your Name"`)
+
 ## Getting Started
 
 1. Build the application:
