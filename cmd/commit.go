@@ -7,10 +7,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/snap/snap/pkg/repository"
-	"github.com/snap/snap/pkg/snapmoji"
-	"github.com/snap/snap/pkg/storage"
-	"github.com/snap/snap/pkg/user"
+	"github.com/stanlocht/snap/pkg/repository"
+	"github.com/stanlocht/snap/pkg/snapmoji"
+	"github.com/stanlocht/snap/pkg/storage"
+	"github.com/stanlocht/snap/pkg/user"
 	"github.com/spf13/cobra"
 )
 

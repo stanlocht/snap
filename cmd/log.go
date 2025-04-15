@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/snap/snap/pkg/repository"
+	"github.com/stanlocht/snap/pkg/repository"
 	"github.com/spf13/cobra"
 )
 

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/snap/snap/pkg/repository"
-	"github.com/snap/snap/pkg/user"
+	"github.com/stanlocht/snap/pkg/repository"
+	"github.com/stanlocht/snap/pkg/user"
 	"github.com/spf13/cobra"
 )
 

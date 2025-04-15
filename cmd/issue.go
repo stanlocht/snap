@@ -5,8 +5,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/snap/snap/pkg/issue"
-	"github.com/snap/snap/pkg/repository"
+	"github.com/stanlocht/snap/pkg/issue"
+	"github.com/stanlocht/snap/pkg/repository"
 	"github.com/spf13/cobra"
 )
 

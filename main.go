@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/snap/snap/cmd"
+	"github.com/stanlocht/snap/cmd"
 )
 
 func main() {
