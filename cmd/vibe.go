@@ -43,7 +43,7 @@ This command analyzes the emojis used in recent commits to determine the mood of
 			return
 		}
 
-		// Define emoji categories for mood analysis
+		// Define snapmoji categories for mood analysis
 		emojiCategories := map[string]struct {
 			emojis  []string
 			mood    string
@@ -82,7 +82,7 @@ This command analyzes the emojis used in recent commits to determine the mood of
 			},
 		}
 
-		// Count emojis in commit messages
+		// Count snapmojis in commit messages
 		emojiCounts := make(map[string]int)
 		for _, commit := range history {
 			for category, info := range emojiCategories {
@@ -110,14 +110,14 @@ This command analyzes the emojis used in recent commits to determine the mood of
 			}
 		}
 
-		// Collect recent emojis
+		// Collect recent snapmojis
 		recentEmojis := []string{}
 		for i, commit := range history {
 			if i >= 5 { // Only look at the 5 most recent commits
 				break
 			}
 
-			// Try to extract emoji from commit message
+			// Try to extract snapmoji from commit message
 			for _, info := range emojiCategories {
 				for _, emoji := range info.emojis {
 					if strings.Contains(commit.Message, emoji) {

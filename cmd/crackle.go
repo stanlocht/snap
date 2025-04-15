@@ -44,10 +44,10 @@ This command shows a colorful and stylized view of the commit history.`,
 		}
 
 		// Display stylized commit history
-		fmt.Println("✨ Stylized Commit Log ✨")
+		fmt.Println("✨ Stylized Commit Log with Snapmojis ✨")
 		fmt.Println(strings.Repeat("=", 60))
 
-		// Define some emoji prefixes for different types of commits
+		// Define some snapmoji prefixes for different types of commits
 		emojiMap := map[string]string{
 			"sparkles":            "✨",
 			"bug":                 "🐛",

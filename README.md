@@ -6,7 +6,7 @@ Snap is an opinionated, fun, and community-focused version control system writte
 
 - Written in Go
 - Command-line interface (CLI) similar to Git
-- All commits must start with a Gitmoji (e.g., :sparkles:, ✨)
+- All commits must start with a Snapmoji (e.g., :sparkles:, ✨)
 - Built-in issue tracking (create, assign, close issues)
 - Gamification system where users earn points for contributions
 - Local-first design (like Git)
@@ -17,7 +17,7 @@ Snap is an opinionated, fun, and community-focused version control system writte
 
 - `snap init` – Initialize a Snap repository
 - `snap add <file>` – Stage files
-- `snap commit -m "<message>"` – Commit with Gitmoji validation
+- `snap commit -m "<message>"` – Commit with Snapmoji validation
 - `snap status` – Show working tree status
 - `snap log` – View commit history
 
@@ -39,7 +39,7 @@ Snap is an opinionated, fun, and community-focused version control system writte
 - `snap boom <message>` – Shortcut for quick commit (like git commit -am)
 - `snap crackle` – Stylized commit log view
 - `snap pop` – Undo last commit
-- `snap vibe` – Show mood of repo based on recent commits/emojis
+- `snap vibe` – Show mood of repo based on recent commits/snapmojis
 
 ## Getting Started
 
@@ -58,7 +58,7 @@ Snap is an opinionated, fun, and community-focused version control system writte
    ./snap add <file>
    ```
 
-4. Commit changes (must start with a Gitmoji):
+4. Commit changes (must start with a Snapmoji):
    ```
    ./snap commit -m "✨ Initial commit" -a "username"
    ```
@@ -68,9 +68,9 @@ Snap is an opinionated, fun, and community-focused version control system writte
    ./snap status
    ```
 
-## Gitmoji Support
+## Snapmoji Support
 
-All commits in Snap must start with a Gitmoji. Here are some commonly used Gitmojis:
+All commits in Snap must start with a Snapmoji. Here are some commonly used Snapmojis:
 
 - ✨ `:sparkles:` – Introduce new features
 - 🐛 `:bug:` – Fix a bug
@@ -88,7 +88,7 @@ All commits in Snap must start with a Gitmoji. Here are some commonly used Gitmo
 - `cmd/` - CLI commands
 - `pkg/` - Core functionality
   - `pkg/repository/` - Repository management
-  - `pkg/gitmoji/` - Gitmoji validation
+  - `pkg/snapmoji/` - Snapmoji validation
   - `pkg/issue/` - Issue tracking
   - `pkg/user/` - User stats and gamification
   - `pkg/storage/` - Storage utilities

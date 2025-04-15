@@ -2,6 +2,7 @@ package gitmoji
 
 import (
 	"errors"
+	"fmt"
 	"strings"
 )
 
@@ -67,4 +68,66 @@ func GetGitmojiList() string {
 	}
 
 	return builder.String()
+}
+
+// GetNumberedGitmojiList returns a numbered list of available gitmojis for selection
+func GetNumberedGitmojiList() string {
+	var builder strings.Builder
+	builder.WriteString("Select a Gitmoji by number:\n\n")
+
+	for i, gitmoji := range Gitmojis {
+		builder.WriteString(fmt.Sprintf("%2d. %s %s - %s\n", i+1, gitmoji.Emoji, gitmoji.Code, gitmoji.Description))
+	}
+
+	return builder.String()
+}
+
+// GetGitmojiByNumber returns a gitmoji by its number in the list (1-based)
+func GetGitmojiByNumber(number int) (Gitmoji, error) {
+	if number < 1 || number > len(Gitmojis) {
+		return Gitmoji{}, fmt.Errorf("invalid gitmoji number: %d (valid range: 1-%d)", number, len(Gitmojis))
+	}
+
+	return Gitmojis[number-1], nil
+}
+
+// AutoConvertKeywordsToEmoji converts keywords in a commit message to emojis
+// It looks for keywords like "feature:", "fix:", "docs:" at the beginning of the message
+func AutoConvertKeywordsToEmoji(message string) string {
+	// Map of keywords to gitmoji codes
+	keywordMap := map[string]string{
+		"feature:":  ":sparkles:",
+		"feat:":     ":sparkles:",
+		"fix:":      ":bug:",
+		"docs:":     ":books:",
+		"doc:":      ":books:",
+		"refactor:": ":recycle:",
+		"perf:":     ":zap:",
+		"test:":     ":white_check_mark:",
+		"chore:":    ":wrench:",
+		"style:":    ":lipstick:",
+		"remove:":   ":fire:",
+		"delete:":   ":fire:",
+		"hotfix:":   ":ambulance:",
+		"ui:":       ":lipstick:",
+		"security:": ":lock:",
+		"wip:":      ":construction:",
+		"deploy:":   ":rocket:",
+		"release:":  ":bookmark:",
+		"add:":      ":heavy_plus_sign:",
+		"subtract:": ":heavy_minus_sign:",
+		"move:":     ":truck:",
+		"rename:":   ":truck:",
+		"ci:":       ":construction_worker:",
+	}
+
+	// Check if message starts with any of the keywords
+	for keyword, emojiCode := range keywordMap {
+		if strings.HasPrefix(strings.ToLower(message), strings.ToLower(keyword)) {
+			// Replace the keyword with the emoji code
+			return emojiCode + " " + strings.TrimSpace(message[len(keyword):])
+		}
+	}
+
+	return message
 }
