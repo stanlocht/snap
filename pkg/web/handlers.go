@@ -75,6 +75,12 @@ type UserDetailData struct {
 	RecentActions []string
 }
 
+// QuestData represents the data for the quest page
+type QuestData struct {
+	CurrentUser    string
+	AssignedIssues []*IssueListItem
+}
+
 // handleHome handles the home page
 func (s *Server) handleHome(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
@@ -453,6 +459,89 @@ func (s *Server) handleUserDetail(w http.ResponseWriter, r *http.Request) {
 			User:          userData,
 			RecentCommits: recentCommits,
 			RecentActions: formattedActions,
+		},
+	}
+
+	// Render template
+	s.Templates.Execute(w, data)
+}
+
+// handleQuest handles the quest page
+func (s *Server) handleQuest(w http.ResponseWriter, r *http.Request) {
+	// Get repository name
+	repoName := filepath.Base(s.Repo.Path)
+
+	// Get current user from query parameter
+	currentUser := r.URL.Query().Get("user")
+	if currentUser == "" {
+		// If no user specified, show a form to select a user
+		userManager := user.NewUserManager(s.Repo.Path)
+		users, err := userManager.GetLeaderboard()
+		if err != nil {
+			http.Error(w, fmt.Sprintf("Error getting users: %v", err), http.StatusInternalServerError)
+			return
+		}
+
+		// Prepare user list for selection
+		userList := make([]*UserListItem, 0, len(users))
+		for _, u := range users {
+			userList = append(userList, &UserListItem{
+				Name:    u.Name,
+				Points:  u.Points,
+				Commits: u.Commits,
+				Issues:  u.IssuesOpen + u.IssuesClosed,
+			})
+		}
+
+		// Prepare data
+		data := &PageData{
+			Title:       "Select User for Quest",
+			RepoName:    repoName,
+			CurrentPage: "quest",
+			Data:        userList,
+		}
+
+		// Render template
+		s.Templates.Execute(w, data)
+		return
+	}
+
+	// Get issues
+	issueManager := issue.NewIssueManager(s.Repo.Path)
+	issues, err := issueManager.ListIssues(false) // Only show open issues
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Error getting issues: %v", err), http.StatusInternalServerError)
+		return
+	}
+
+	// Filter issues assigned to the current user
+	assignedIssues := make([]*IssueListItem, 0)
+	for _, issue := range issues {
+		if issue.AssignedTo == currentUser {
+			status := "Open"
+			if string(issue.Status) == "closed" {
+				status = "Closed"
+			}
+
+			assignedIssues = append(assignedIssues, &IssueListItem{
+				ID:         issue.ID,
+				Title:      issue.Title,
+				Status:     status,
+				CreatedBy:  issue.CreatedBy,
+				CreatedAt:  formatTime(issue.CreatedAt),
+				AssignedTo: issue.AssignedTo,
+			})
+		}
+	}
+
+	// Prepare data
+	data := &PageData{
+		Title:       "Snap Quest",
+		RepoName:    repoName,
+		CurrentPage: "quest",
+		Data: &QuestData{
+			CurrentUser:    currentUser,
+			AssignedIssues: assignedIssues,
 		},
 	}
 

@@ -380,6 +380,33 @@ footer {
     margin-bottom: 1.5rem;
 }
 
+/* Quest styles */
+.quest-container {
+    margin-bottom: 2rem;
+}
+
+.quest-header {
+    margin-bottom: 1.5rem;
+}
+
+.quest-header h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.quest-item {
+    border-left: 4px solid var(--primary-color);
+}
+
+.issue-reward {
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+.quest-user-selection p {
+    margin-bottom: 1.5rem;
+}
+
 .welcome-message h3 {
     margin-top: 0;
     color: var(--primary-color);

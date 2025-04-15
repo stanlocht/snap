@@ -59,6 +59,7 @@ func StartServer(repo *repository.Repository, port int) error {
 	http.HandleFunc("/issue/", server.handleIssueDetail)
 	http.HandleFunc("/users", server.handleUsers)
 	http.HandleFunc("/user/", server.handleUserDetail)
+	http.HandleFunc("/quest", server.handleQuest)
 	http.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/html")
 		data, err := templateFS.ReadFile("templates/test.html")

@@ -20,6 +20,7 @@
                     <li><a href="/commits" class="{{ if eq .CurrentPage "commits" }}active{{ end }}">Commits</a></li>
                     <li><a href="/issues" class="{{ if eq .CurrentPage "issues" }}active{{ end }}">Issues</a></li>
                     <li><a href="/users" class="{{ if eq .CurrentPage "users" }}active{{ end }}">Users</a></li>
+                    <li><a href="/quest" class="{{ if eq .CurrentPage "quest" }}active{{ end }}">Quest</a></li>
                 </ul>
             </nav>
         </div>
@@ -27,7 +28,7 @@
 
     <main class="container">
         <h2>{{ .Title }}</h2>
-        
+
         <!-- Home Page Content -->
         {{ if eq .CurrentPage "home" }}
         {{ $homeData := .Data }}
@@ -257,6 +258,89 @@
                     <li>{{ . }}</li>
                     {{ end }}
                 </ul>
+            </div>
+            {{ end }}
+        </div>
+        {{ end }}
+
+        <!-- Quest Page Content - User Selection -->
+        {{ if eq .Title "Select User for Quest" }}
+        {{ $users := .Data }}
+        <div class="quest-user-selection">
+            <p>Select a user to view their assigned issues:</p>
+            {{ if $users }}
+            <div class="user-list">
+                {{ range $users }}
+                <div class="user-item">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-info">
+                        <a href="/quest?user={{ .Name }}" class="user-name">{{ .Name }}</a>
+                        <div class="user-meta">
+                            <span class="user-points">{{ .Points }} points</span>
+                            <span class="user-commits">{{ .Commits }} commits</span>
+                            <span class="user-issues">{{ .Issues }} issues</span>
+                        </div>
+                    </div>
+                </div>
+                {{ end }}
+            </div>
+            {{ else }}
+            <div class="welcome-message">
+                <h3>No Users Yet</h3>
+                <p>It looks like there are no users in this repository yet. Users are created automatically when they make commits or interact with issues.</p>
+                <div class="code-block">
+                    <pre><code># Make a commit with a username
+./snap commit -m "✨ Initial commit" -a "your-username"
+
+# Create an issue as a user
+./snap issue new -t "Issue title" -d "Issue description"
+
+# View user stats
+./snap me</code></pre>
+                </div>
+                <p>Snap has a built-in gamification system where users earn points for their contributions to the repository.</p>
+            </div>
+            {{ end }}
+        </div>
+        {{ end }}
+
+        <!-- Quest Page Content - Assigned Issues -->
+        {{ if eq .Title "Snap Quest" }}
+        {{ $questData := .Data }}
+        <div class="quest-container">
+            <div class="quest-header">
+                <h3>{{ $questData.CurrentUser }}'s Quests</h3>
+                <p>Complete these quests to earn points and level up!</p>
+            </div>
+
+            {{ if $questData.AssignedIssues }}
+            <div class="issue-list">
+                {{ range $questData.AssignedIssues }}
+                <div class="issue-item quest-item">
+                    <div class="issue-status {{ if eq .Status "Closed" }}closed{{ else }}open{{ end }}">
+                        {{ .Status }}
+                    </div>
+                    <div class="issue-info">
+                        <a href="/issue/{{ .ID }}" class="issue-title">#{{ .ID }}: {{ .Title }}</a>
+                        <div class="issue-meta">
+                            <span class="issue-author">Created by: {{ .CreatedBy }}</span>
+                            <span class="issue-date">{{ .CreatedAt }}</span>
+                            <span class="issue-reward">Reward: 15 points</span>
+                        </div>
+                    </div>
+                </div>
+                {{ end }}
+            </div>
+            {{ else }}
+            <div class="welcome-message">
+                <h3>No Quests Available</h3>
+                <p>{{ $questData.CurrentUser }} doesn't have any assigned issues yet.</p>
+                <p>Issues can be assigned using the following command:</p>
+                <div class="code-block">
+                    <pre><code># Assign an issue to a user
+./snap issue assign &lt;id&gt; {{ $questData.CurrentUser }}</code></pre>
+                </div>
+                <p>Completing quests (closing issues) earns you points in the Snap gamification system!</p>
             </div>
             {{ end }}
         </div>

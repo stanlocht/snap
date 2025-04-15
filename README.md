@@ -47,6 +47,13 @@ Snap is an opinionated, fun, and community-focused version control system writte
 - `snap web --port 8888` – Custom port
 - `snap web --open` – Automatically open browser
 
+Once the web interface is running, you can access these features:
+- Home – Repository overview and stats
+- Commits – Browse all commits
+- Issues – View and manage issues
+- Users – See contributor stats
+- Quest – View your assigned issues
+
 ## Getting Started
 
 1. Build the application:
