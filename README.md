@@ -1,6 +1,11 @@
 # Snap
 
-Snap is an opinionated, fun, and community-focused version control system written in Go. It supports core version control features like initializing a repo, committing files, and branching, but with some key differences.
+Snap is a playful, community-driven version control system with a fresh take on collaboration.
+It supports all the essentials—like initializing a repo, committing changes, and branching—but adds its own flair:
+
+- Commits begin with a Snapmoji to keep things expressive and fun (e.g., :sparkles:, ✨)
+- Built-in issue tracking makes managing tasks simple and seamless
+- Contributions are tracked in a rewarding way, celebrating your work and progress over time
 
 ## Core Features
 

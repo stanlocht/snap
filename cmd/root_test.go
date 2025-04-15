@@ -26,7 +26,7 @@ func TestRootCommand(t *testing.T) {
 
 	// Check if output contains expected text
 	expectedTexts := []string{
-		"Snap is an opinionated, fun, and community-focused version control system",
+		"Snap is a playful, community-driven version control system",
 		"Usage:",
 		"snap [command]",
 		"Available Commands:",

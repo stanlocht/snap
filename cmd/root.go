@@ -8,14 +8,13 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "snap",
-	Short: "Snap is a Git-like version control system with a focus on fun and community",
-	Long: `Snap is an opinionated, fun, and community-focused version control system.
-It supports core version control features like initializing a repo, committing files,
-branching, etc., but with some key differences:
+	Short: "Snap is a playful, community-driven version control system with a fresh take on collaboration",
+	Long: `Snap is a playful, community-driven version control system with a fresh take on collaboration.
+It supports all the essentials—like initializing a repo, committing changes, and branching—but adds its own flair:
 
-- All commits must start with a Gitmoji (e.g., :sparkles:, ✨)
-- Built-in issue tracking (create, assign, close issues)
-- Gamification system where users earn points for contributions`,
+- Commits begin with a Snapmoji to keep things expressive and fun (e.g., :sparkles:, ✨)
+- Built-in issue tracking makes managing tasks simple and seamless
+- Contributions are tracked in a rewarding way, celebrating your work and progress over time`,
 	Run: func(cmd *cobra.Command, args []string) {
 		// If version flag is set, print version and exit
 		if versionFlag, _ := cmd.Flags().GetBool("version"); versionFlag {

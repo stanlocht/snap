@@ -72,10 +72,10 @@
                 <p>It looks like you haven't made any commits yet. Here's how to get started:</p>
                 <div class="code-block">
                     <pre><code># Add files to the staging area
-./snap add &lt;file&gt;
+snap add &lt;file&gt;
 
 # Commit your changes (must start with a Snapmoji)
-./snap commit -m "✨ Initial commit" -a "your-username"</code></pre>
+snap commit -m "✨ Initial commit" -a "your-username"</code></pre>
                 </div>
                 <p>Remember, all commit messages must start with a Snapmoji! Here are some common ones:</p>
                 <ul class="emoji-list">
@@ -87,7 +87,7 @@
                 <p>For a quick commit, you can also use:</p>
                 <div class="code-block">
                     <pre><code># Quickly add and commit all changes
-./snap boom "✨ My commit message"</code></pre>
+snap boom "✨ My commit message"</code></pre>
                 </div>
             </div>
             {{ end }}
@@ -147,16 +147,16 @@
             <p>It looks like there are no issues in this repository yet. Here's how to create one:</p>
             <div class="code-block">
                 <pre><code># Create a new issue
-./snap issue new -t "Issue title" -d "Issue description"
+snap issue new -t "Issue title" -d "Issue description"
 
 # List all issues
-./snap issue list
+snap issue list
 
 # Assign an issue to a user
-./snap issue assign &lt;id&gt; &lt;username&gt;
+snap issue assign &lt;id&gt; &lt;username&gt;
 
 # Close an issue
-./snap issue close &lt;id&gt;</code></pre>
+snap issue close &lt;id&gt;</code></pre>
             </div>
             <p>Issues are a great way to track bugs, feature requests, and other tasks in your repository.</p>
         </div>
@@ -188,13 +188,13 @@
             <p>It looks like there are no users in this repository yet. Users are created automatically when they make commits or interact with issues.</p>
             <div class="code-block">
                 <pre><code># Make a commit with a username
-./snap commit -m "✨ Initial commit" -a "your-username"
+snap commit -m "✨ Initial commit" -a "your-username"
 
 # Create an issue as a user
-./snap issue new -t "Issue title" -d "Issue description"
+snap issue new -t "Issue title" -d "Issue description"
 
 # View user stats
-./snap me</code></pre>
+snap me</code></pre>
             </div>
             <p>Snap has a built-in gamification system where users earn points for their contributions to the repository.</p>
         </div>
@@ -290,13 +290,13 @@
                 <p>It looks like there are no users in this repository yet. Users are created automatically when they make commits or interact with issues.</p>
                 <div class="code-block">
                     <pre><code># Make a commit with a username
-./snap commit -m "✨ Initial commit" -a "your-username"
+snap commit -m "✨ Initial commit" -a "your-username"
 
 # Create an issue as a user
-./snap issue new -t "Issue title" -d "Issue description"
+snap issue new -t "Issue title" -d "Issue description"
 
 # View user stats
-./snap me</code></pre>
+snap me</code></pre>
                 </div>
                 <p>Snap has a built-in gamification system where users earn points for their contributions to the repository.</p>
             </div>
@@ -338,7 +338,7 @@
                 <p>Issues can be assigned using the following command:</p>
                 <div class="code-block">
                     <pre><code># Assign an issue to a user
-./snap issue assign &lt;id&gt; {{ $questData.CurrentUser }}</code></pre>
+snap issue assign &lt;id&gt; {{ $questData.CurrentUser }}</code></pre>
                 </div>
                 <p>Completing quests (closing issues) earns you points in the Snap gamification system!</p>
             </div>
@@ -398,7 +398,7 @@
         <div class="container">
             <div class="footer-content">
                 <img src="/static/images/favicon.svg" alt="Snap Logo" class="footer-logo">
-                <p>Snap - A fun, opinionated version control system</p>
+                <p>Snap - A playful, community-driven version control system</p>
             </div>
         </div>
     </footer>
