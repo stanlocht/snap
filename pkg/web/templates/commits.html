@@ -1,0 +1,27 @@
+{{ define "commits.html" }}
+{{ template "layout.html" . }}
+{{ end }}
+
+{{ define "content" }}
+{{ $commits := .Data }}
+
+{{ if $commits }}
+<div class="commit-list">
+    {{ range $commits }}
+    <div class="commit-item">
+        <div class="commit-emoji">{{ .Emoji }}</div>
+        <div class="commit-info">
+            <a href="/commit/{{ .ID }}" class="commit-title">{{ .Message }}</a>
+            <div class="commit-meta">
+                <span class="commit-id">{{ .ShortID }}</span>
+                <span class="commit-author">{{ .Author }}</span>
+                <span class="commit-date">{{ .Timestamp }}</span>
+            </div>
+        </div>
+    </div>
+    {{ end }}
+</div>
+{{ else }}
+<p>No commits yet.</p>
+{{ end }}
+{{ end }}

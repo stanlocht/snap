@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }} - Snap</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="/static/images/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-logo">
+                <img src="/static/images/logo.svg" alt="Snap Logo" class="logo">
+                <h1>Snap: {{ .RepoName }}</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/" class="{{ if eq .CurrentPage "home" }}active{{ end }}">Home</a></li>
+                    <li><a href="/commits" class="{{ if eq .CurrentPage "commits" }}active{{ end }}">Commits</a></li>
+                    <li><a href="/issues" class="{{ if eq .CurrentPage "issues" }}active{{ end }}">Issues</a></li>
+                    <li><a href="/users" class="{{ if eq .CurrentPage "users" }}active{{ end }}">Users</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>{{ .Title }}</h2>
+        
+        <!-- Home Page Content -->
+        {{ if eq .CurrentPage "home" }}
+        {{ $homeData := .Data }}
+        <div class="dashboard">
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3>Commits</h3>
+                    <p class="stat-number">{{ $homeData.CommitCount }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Issues</h3>
+                    <p class="stat-number">{{ $homeData.IssueCount }}</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Contributors</h3>
+                    <p class="stat-number">{{ $homeData.ContributorCount }}</p>
+                </div>
+            </div>
+
+            <h3>Recent Commits</h3>
+            {{ if $homeData.RecentCommits }}
+            <div class="commit-list">
+                {{ range $homeData.RecentCommits }}
+                <div class="commit-item">
+                    <div class="commit-emoji">{{ .Emoji }}</div>
+                    <div class="commit-info">
+                        <a href="/commit/{{ .ID }}" class="commit-title">{{ .Message }}</a>
+                        <div class="commit-meta">
+                            <span class="commit-id">{{ .ShortID }}</span>
+                            <span class="commit-author">{{ .Author }}</span>
+                            <span class="commit-date">{{ .Timestamp }}</span>
+                        </div>
+                    </div>
+                </div>
+                {{ end }}
+            </div>
+            <p class="view-all"><a href="/commits">View all commits →</a></p>
+            {{ else }}
+            <div class="welcome-message">
+                <h3>Welcome to Snap!</h3>
+                <p>It looks like you haven't made any commits yet. Here's how to get started:</p>
+                <div class="code-block">
+                    <pre><code># Add files to the staging area
+./snap add &lt;file&gt;
+
+# Commit your changes (must start with a Snapmoji)
+./snap commit -m "✨ Initial commit" -a "your-username"</code></pre>
+                </div>
+                <p>Remember, all commit messages must start with a Snapmoji! Here are some common ones:</p>
+                <ul class="emoji-list">
+                    <li>✨ <code>:sparkles:</code> - New features</li>
+                    <li>🐛 <code>:bug:</code> - Bug fixes</li>
+                    <li>📚 <code>:books:</code> - Documentation</li>
+                    <li>♻️ <code>:recycle:</code> - Refactoring</li>
+                </ul>
+                <p>For a quick commit, you can also use:</p>
+                <div class="code-block">
+                    <pre><code># Quickly add and commit all changes
+./snap boom "✨ My commit message"</code></pre>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+        {{ end }}
+
+        <!-- Commits Page Content -->
+        {{ if eq .CurrentPage "commits" }}
+        {{ $commits := .Data }}
+        {{ if $commits }}
+        <div class="commit-list">
+            {{ range $commits }}
+            <div class="commit-item">
+                <div class="commit-emoji">{{ .Emoji }}</div>
+                <div class="commit-info">
+                    <a href="/commit/{{ .ID }}" class="commit-title">{{ .Message }}</a>
+                    <div class="commit-meta">
+                        <span class="commit-id">{{ .ShortID }}</span>
+                        <span class="commit-author">{{ .Author }}</span>
+                        <span class="commit-date">{{ .Timestamp }}</span>
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+        {{ else }}
+        <p>No commits yet.</p>
+        {{ end }}
+        {{ end }}
+
+        <!-- Issues Page Content -->
+        {{ if eq .CurrentPage "issues" }}
+        {{ $issues := .Data }}
+        {{ if $issues }}
+        <div class="issue-list">
+            {{ range $issues }}
+            <div class="issue-item">
+                <div class="issue-status {{ if eq .Status "Closed" }}closed{{ else }}open{{ end }}">
+                    {{ .Status }}
+                </div>
+                <div class="issue-info">
+                    <a href="/issue/{{ .ID }}" class="issue-title">#{{ .ID }}: {{ .Title }}</a>
+                    <div class="issue-meta">
+                        <span class="issue-author">Created by: {{ .CreatedBy }}</span>
+                        <span class="issue-date">{{ .CreatedAt }}</span>
+                        {{ if .AssignedTo }}
+                        <span class="issue-assignee">Assigned to: {{ .AssignedTo }}</span>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+        {{ else }}
+        <div class="welcome-message">
+            <h3>No Issues Yet</h3>
+            <p>It looks like there are no issues in this repository yet. Here's how to create one:</p>
+            <div class="code-block">
+                <pre><code># Create a new issue
+./snap issue new -t "Issue title" -d "Issue description"
+
+# List all issues
+./snap issue list
+
+# Assign an issue to a user
+./snap issue assign &lt;id&gt; &lt;username&gt;
+
+# Close an issue
+./snap issue close &lt;id&gt;</code></pre>
+            </div>
+            <p>Issues are a great way to track bugs, feature requests, and other tasks in your repository.</p>
+        </div>
+        {{ end }}
+        {{ end }}
+
+        <!-- Users Page Content -->
+        {{ if eq .CurrentPage "users" }}
+        {{ $users := .Data }}
+        {{ if $users }}
+        <div class="user-list">
+            {{ range $users }}
+            <div class="user-item">
+                <div class="user-avatar">👤</div>
+                <div class="user-info">
+                    <a href="/user/{{ .Name }}" class="user-name">{{ .Name }}</a>
+                    <div class="user-meta">
+                        <span class="user-points">{{ .Points }} points</span>
+                        <span class="user-commits">{{ .Commits }} commits</span>
+                        <span class="user-issues">{{ .Issues }} issues</span>
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+        {{ else }}
+        <div class="welcome-message">
+            <h3>No Users Yet</h3>
+            <p>It looks like there are no users in this repository yet. Users are created automatically when they make commits or interact with issues.</p>
+            <div class="code-block">
+                <pre><code># Make a commit with a username
+./snap commit -m "✨ Initial commit" -a "your-username"
+
+# Create an issue as a user
+./snap issue new -t "Issue title" -d "Issue description"
+
+# View user stats
+./snap me</code></pre>
+            </div>
+            <p>Snap has a built-in gamification system where users earn points for their contributions to the repository.</p>
+        </div>
+        {{ end }}
+        {{ end }}
+
+        <!-- Commit Detail Page Content -->
+        {{ if eq .Title "Commit Detail" }}
+        {{ $commitData := .Data }}
+        <div class="commit-detail">
+            <div class="commit-header">
+                <div class="commit-emoji">{{ $commitData.Commit.Emoji }}</div>
+                <div class="commit-info">
+                    <h3 class="commit-title">{{ $commitData.Commit.Message }}</h3>
+                    <div class="commit-meta">
+                        <span class="commit-id">{{ $commitData.Commit.ID }}</span>
+                        <span class="commit-author">{{ $commitData.Commit.Author }}</span>
+                        <span class="commit-date">{{ $commitData.Commit.Timestamp }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="commit-files">
+                <h4>Files Changed</h4>
+                <ul class="file-list">
+                    {{ range $commitData.Files }}
+                    <li>{{ . }}</li>
+                    {{ end }}
+                </ul>
+            </div>
+        </div>
+        {{ end }}
+
+        <!-- Issue Detail Page Content -->
+        {{ if eq .Title "Issue Detail" }}
+        {{ $issueData := .Data }}
+        <div class="issue-detail">
+            <div class="issue-header">
+                <div class="issue-status {{ if eq $issueData.Issue.Status "Closed" }}closed{{ else }}open{{ end }}">
+                    {{ $issueData.Issue.Status }}
+                </div>
+                <div class="issue-info">
+                    <h3 class="issue-title">#{{ $issueData.Issue.ID }}: {{ $issueData.Issue.Title }}</h3>
+                    <div class="issue-meta">
+                        <span class="issue-author">Created by: {{ $issueData.Issue.CreatedBy }}</span>
+                        <span class="issue-date">{{ $issueData.Issue.CreatedAt }}</span>
+                        {{ if $issueData.Issue.AssignedTo }}
+                        <span class="issue-assignee">Assigned to: {{ $issueData.Issue.AssignedTo }}</span>
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+            <div class="issue-description">
+                <h4>Description</h4>
+                <p>{{ $issueData.Description }}</p>
+            </div>
+            {{ if $issueData.Comments }}
+            <div class="issue-comments">
+                <h4>Comments</h4>
+                <ul class="comment-list">
+                    {{ range $issueData.Comments }}
+                    <li>{{ . }}</li>
+                    {{ end }}
+                </ul>
+            </div>
+            {{ end }}
+        </div>
+        {{ end }}
+
+        <!-- User Detail Page Content -->
+        {{ if eq .Title "User Detail" }}
+        {{ $userData := .Data }}
+        <div class="user-detail">
+            <div class="user-header">
+                <div class="user-avatar">👤</div>
+                <div class="user-info">
+                    <h3 class="user-name">{{ $userData.User.Name }}</h3>
+                    <div class="user-meta">
+                        <span class="user-points">{{ $userData.User.Points }} points</span>
+                        <span class="user-commits">{{ $userData.User.Commits }} commits</span>
+                        <span class="user-issues">{{ $userData.User.Issues }} issues</span>
+                    </div>
+                </div>
+            </div>
+            {{ if $userData.RecentCommits }}
+            <div class="user-commits">
+                <h4>Recent Commits</h4>
+                <div class="commit-list">
+                    {{ range $userData.RecentCommits }}
+                    <div class="commit-item">
+                        <div class="commit-emoji">{{ .Emoji }}</div>
+                        <div class="commit-info">
+                            <a href="/commit/{{ .ID }}" class="commit-title">{{ .Message }}</a>
+                            <div class="commit-meta">
+                                <span class="commit-id">{{ .ShortID }}</span>
+                                <span class="commit-date">{{ .Timestamp }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {{ end }}
+                </div>
+            </div>
+            {{ end }}
+            {{ if $userData.RecentActions }}
+            <div class="user-actions">
+                <h4>Recent Activity</h4>
+                <ul class="action-list">
+                    {{ range $userData.RecentActions }}
+                    <li>{{ . }}</li>
+                    {{ end }}
+                </ul>
+            </div>
+            {{ end }}
+        </div>
+        {{ end }}
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <img src="/static/images/favicon.svg" alt="Snap Logo" class="footer-logo">
+                <p>Snap - A fun, opinionated version control system</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

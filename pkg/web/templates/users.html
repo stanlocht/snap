@@ -1,0 +1,40 @@
+{{ define "users.html" }} {{ template "layout.html" . }} {{ end }} {{ define
+"content" }} {{ $users := .Data }} {{ if $users }}
+<div class="user-list">
+  {{ range $users }}
+  <div class="user-item">
+    <div class="user-avatar">👤</div>
+    <div class="user-info">
+      <a href="/user/{{ .Name }}" class="user-name">{{ .Name }}</a>
+      <div class="user-meta">
+        <span class="user-points">{{ .Points }} points</span>
+        <span class="user-commits">{{ .Commits }} commits</span>
+        <span class="user-issues">{{ .Issues }} issues</span>
+      </div>
+    </div>
+  </div>
+  {{ end }}
+</div>
+{{ else }}
+<div class="welcome-message">
+  <h3>No Users Yet</h3>
+  <p>
+    It looks like there are no users in this repository yet. Users are created
+    automatically when they make commits or interact with issues.
+  </p>
+  <div class="code-block">
+    <pre><code># Make a commit with a username
+./snap commit -m "✨ Initial commit" -a "your-username"
+
+# Create an issue as a user
+./snap issue new -t "Issue title" -d "Issue description"
+
+# View user stats
+./snap me</code></pre>
+  </div>
+  <p>
+    Snap has a built-in gamification system where users earn points for their
+    contributions to the repository.
+  </p>
+</div>
+{{ end }} {{ end }}

@@ -1,0 +1,37 @@
+{{ define "commit_detail.html" }}
+{{ template "layout.html" . }}
+{{ end }}
+
+{{ define "content" }}
+{{ $commitData := .Data }}
+{{ $commit := $commitData.Commit }}
+
+<div class="commit-detail">
+    <div class="commit-header">
+        <div class="commit-emoji">{{ $commit.Emoji }}</div>
+        <div class="commit-info">
+            <h3 class="commit-title">{{ $commit.Message }}</h3>
+            <div class="commit-meta">
+                <span class="commit-id">{{ $commit.ID }}</span>
+                <span class="commit-author">{{ $commit.Author }}</span>
+                <span class="commit-date">{{ $commit.Timestamp }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="commit-files">
+        <h4>Files Changed</h4>
+        {{ if $commitData.Files }}
+        <ul class="file-list">
+            {{ range $commitData.Files }}
+            <li class="file-item">{{ . }}</li>
+            {{ end }}
+        </ul>
+        {{ else }}
+        <p>No files changed.</p>
+        {{ end }}
+    </div>
+</div>
+
+<p class="back-link"><a href="/commits">← Back to commits</a></p>
+{{ end }}

@@ -19,6 +19,8 @@ const (
 	ActionIssueCreate Action = "issue_create"
 	// ActionIssueClose represents an issue closure action
 	ActionIssueClose Action = "issue_close"
+	// ActionIssueAssign represents an issue assignment action
+	ActionIssueAssign Action = "issue_assign"
 )
 
 // PointValues defines the point values for different actions
@@ -26,6 +28,7 @@ var PointValues = map[Action]int{
 	ActionCommit:      10,
 	ActionIssueCreate: 5,
 	ActionIssueClose:  15,
+	ActionIssueAssign: 5,
 }
 
 // User represents a user in the repository

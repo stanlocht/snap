@@ -1,0 +1,421 @@
+/* Base styles */
+:root {
+    --primary-color: #4a86e8;
+    --secondary-color: #6aa84f;
+    --accent-color: #FFBB33;
+    --text-color: #333;
+    --light-gray: #f5f5f5;
+    --medium-gray: #e0e0e0;
+    --dark-gray: #999;
+    --success-color: #6aa84f;
+    --warning-color: #FFBB33;
+    --danger-color: #cc0000;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: #fff;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+/* Header */
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 0;
+    margin-bottom: 2rem;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+header nav {
+    margin-top: 1rem;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+header nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s;
+}
+
+header nav a:hover,
+header nav a.active {
+    border-color: white;
+}
+
+/* Main content */
+main {
+    min-height: calc(100vh - 200px);
+    padding-bottom: 2rem;
+}
+
+main h2 {
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+/* Footer */
+footer {
+    background-color: var(--light-gray);
+    padding: 1rem 0;
+    color: var(--dark-gray);
+    margin-top: 2rem;
+}
+
+.footer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.footer-logo {
+    width: 24px;
+    height: 24px;
+}
+
+/* Dashboard */
+.dashboard {
+    margin-bottom: 2rem;
+}
+
+.stats-container {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    flex: 1;
+    background-color: var(--light-gray);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.view-all {
+    text-align: right;
+    margin-top: 1rem;
+}
+
+/* Commit list */
+.commit-list {
+    margin-bottom: 1.5rem;
+}
+
+.commit-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+.commit-emoji {
+    font-size: 1.5rem;
+    min-width: 2rem;
+    text-align: center;
+}
+
+.commit-info {
+    flex: 1;
+}
+
+.commit-title {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.commit-meta {
+    font-size: 0.875rem;
+    color: var(--dark-gray);
+}
+
+.commit-meta span:not(:last-child)::after {
+    content: "•";
+    margin: 0 0.5rem;
+}
+
+/* Commit detail */
+.commit-detail {
+    background-color: var(--light-gray);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.commit-header {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.commit-files h4 {
+    margin-bottom: 0.5rem;
+}
+
+.file-list {
+    list-style: none;
+}
+
+.file-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+.back-link {
+    margin-top: 1rem;
+}
+
+/* Issue list */
+.issue-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+.issue-status {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    min-width: 60px;
+    text-align: center;
+    align-self: flex-start;
+}
+
+.issue-status.open {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.issue-status.closed {
+    background-color: var(--dark-gray);
+    color: white;
+}
+
+.issue-info {
+    flex: 1;
+}
+
+.issue-title {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.issue-meta {
+    font-size: 0.875rem;
+    color: var(--dark-gray);
+}
+
+.issue-meta span:not(:last-child)::after {
+    content: "•";
+    margin: 0 0.5rem;
+}
+
+/* Issue detail */
+.issue-detail {
+    background-color: var(--light-gray);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.issue-header {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.issue-description h4,
+.issue-comments h4 {
+    margin-bottom: 0.5rem;
+}
+
+.description-content {
+    background-color: white;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.comment-list {
+    list-style: none;
+}
+
+.comment-item {
+    background-color: white;
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+/* User list */
+.user-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+.user-avatar {
+    font-size: 1.5rem;
+    min-width: 2rem;
+    text-align: center;
+}
+
+.user-info {
+    flex: 1;
+}
+
+.user-name {
+    font-weight: 500;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.user-meta {
+    font-size: 0.875rem;
+    color: var(--dark-gray);
+}
+
+.user-meta span:not(:last-child)::after {
+    content: "•";
+    margin: 0 0.5rem;
+}
+
+/* User detail */
+.user-detail {
+    background-color: var(--light-gray);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.user-header {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.user-commits h4,
+.user-actions h4 {
+    margin-bottom: 0.5rem;
+}
+
+.action-list {
+    list-style: none;
+}
+
+.action-item {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--medium-gray);
+}
+
+/* Welcome message */
+.welcome-message {
+    background-color: var(--light-gray);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.welcome-message h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+.code-block {
+    background-color: #f8f8f8;
+    border: 1px solid var(--medium-gray);
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+}
+
+.code-block pre {
+    margin: 0;
+    font-family: monospace;
+    white-space: pre-wrap;
+}
+
+.emoji-list {
+    list-style: none;
+    padding-left: 1rem;
+}
+
+.emoji-list li {
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .stats-container {
+        flex-direction: column;
+    }
+
+    header nav ul {
+        flex-wrap: wrap;
+    }
+}

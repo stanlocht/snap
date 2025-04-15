@@ -1,0 +1,69 @@
+{{ define "home.html" }} {{ template "layout.html" . }} {{ end }} {{ define
+"content" }} {{ $homeData := .Data }}
+
+<div class="dashboard">
+  <div class="stats-container">
+    <div class="stat-card">
+      <h3>Commits</h3>
+      <p class="stat-number">{{ $homeData.CommitCount }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Issues</h3>
+      <p class="stat-number">{{ $homeData.IssueCount }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Contributors</h3>
+      <p class="stat-number">{{ $homeData.ContributorCount }}</p>
+    </div>
+  </div>
+
+  <h3>Recent Commits</h3>
+  {{ if $homeData.RecentCommits }}
+  <div class="commit-list">
+    {{ range $homeData.RecentCommits }}
+    <div class="commit-item">
+      <div class="commit-emoji">{{ .Emoji }}</div>
+      <div class="commit-info">
+        <a href="/commit/{{ .ID }}" class="commit-title">{{ .Message }}</a>
+        <div class="commit-meta">
+          <span class="commit-id">{{ .ShortID }}</span>
+          <span class="commit-author">{{ .Author }}</span>
+          <span class="commit-date">{{ .Timestamp }}</span>
+        </div>
+      </div>
+    </div>
+    {{ end }}
+  </div>
+  <p class="view-all"><a href="/commits">View all commits →</a></p>
+  {{ else }}
+  <div class="welcome-message">
+    <h3>Welcome to Snap!</h3>
+    <p>
+      It looks like you haven't made any commits yet. Here's how to get started:
+    </p>
+    <div class="code-block">
+      <pre><code># Add files to the staging area
+./snap add &lt;file&gt;
+
+# Commit your changes (must start with a Snapmoji)
+./snap commit -m "✨ Initial commit" -a "your-username"</code></pre>
+    </div>
+    <p>
+      Remember, all commit messages must start with a Snapmoji! Here are some
+      common ones:
+    </p>
+    <ul class="emoji-list">
+      <li>✨ <code>:sparkles:</code> - New features</li>
+      <li>🐛 <code>:bug:</code> - Bug fixes</li>
+      <li>📚 <code>:books:</code> - Documentation</li>
+      <li>♻️ <code>:recycle:</code> - Refactoring</li>
+    </ul>
+    <p>For a quick commit, you can also use:</p>
+    <div class="code-block">
+      <pre><code># Quickly add and commit all changes
+./snap boom "✨ My commit message"</code></pre>
+    </div>
+  </div>
+  {{ end }}
+</div>
+{{ end }}

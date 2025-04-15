@@ -41,6 +41,12 @@ Snap is an opinionated, fun, and community-focused version control system writte
 - `snap pop` – Undo last commit
 - `snap vibe` – Show mood of repo based on recent commits/snapmojis
 
+### Web Interface
+
+- `snap web` – Launch local Snap dashboard
+- `snap web --port 8888` – Custom port
+- `snap web --open` – Automatically open browser
+
 ## Getting Started
 
 1. Build the application:

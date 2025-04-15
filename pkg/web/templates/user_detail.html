@@ -1,0 +1,55 @@
+{{ define "user_detail.html" }}
+{{ template "layout.html" . }}
+{{ end }}
+
+{{ define "content" }}
+{{ $userData := .Data }}
+{{ $user := $userData.User }}
+
+<div class="user-detail">
+    <div class="user-header">
+        <div class="user-avatar">👤</div>
+        <div class="user-info">
+            <h3 class="user-name">{{ $user.Name }}</h3>
+            <div class="user-meta">
+                <span class="user-points">{{ $user.Points }} points</span>
+                <span class="user-commits">{{ $user.Commits }} commits</span>
+                <span class="user-issues">{{ $user.Issues }} issues</span>
+            </div>
+        </div>
+    </div>
+
+    {{ if $userData.RecentCommits }}
+    <div class="user-commits">
+        <h4>Recent Commits</h4>
+        <div class="commit-list">
+            {{ range $userData.RecentCommits }}
+            <div class="commit-item">
+                <div class="commit-emoji">{{ .Emoji }}</div>
+                <div class="commit-info">
+                    <a href="/commit/{{ .ID }}" class="commit-title">{{ .Message }}</a>
+                    <div class="commit-meta">
+                        <span class="commit-id">{{ .ShortID }}</span>
+                        <span class="commit-date">{{ .Timestamp }}</span>
+                    </div>
+                </div>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+    {{ end }}
+
+    {{ if $userData.RecentActions }}
+    <div class="user-actions">
+        <h4>Recent Activity</h4>
+        <ul class="action-list">
+            {{ range $userData.RecentActions }}
+            <li class="action-item">{{ . }}</li>
+            {{ end }}
+        </ul>
+    </div>
+    {{ end }}
+</div>
+
+<p class="back-link"><a href="/users">← Back to users</a></p>
+{{ end }}

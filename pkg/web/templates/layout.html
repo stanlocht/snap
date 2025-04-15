@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ .Title }} - Snap</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="icon" href="/static/images/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-logo">
+                <img src="/static/images/logo.svg" alt="Snap Logo" class="logo">
+                <h1>Snap: {{ .RepoName }}</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="/" class="{{ if eq .CurrentPage "home" }}active{{ end }}">Home</a></li>
+                    <li><a href="/commits" class="{{ if eq .CurrentPage "commits" }}active{{ end }}">Commits</a></li>
+                    <li><a href="/issues" class="{{ if eq .CurrentPage "issues" }}active{{ end }}">Issues</a></li>
+                    <li><a href="/users" class="{{ if eq .CurrentPage "users" }}active{{ end }}">Users</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <h2>{{ .Title }}</h2>
+        {{ template "content" . }}
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <img src="/static/images/favicon.svg" alt="Snap Logo" class="footer-logo">
+                <p>Snap - A fun, opinionated version control system</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
