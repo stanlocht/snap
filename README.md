@@ -71,10 +71,15 @@ Once the web interface is running, you can access these features:
 The easiest way to install Snap is using Go's install command:
 
 ```
-go install github.com/stanlocht/snap@v0.0.1
+go install github.com/stanlocht/snap@latest
 ```
 
 This will download and install the Snap binary to your `$GOPATH/bin` directory. Make sure this directory is in your system's PATH to run Snap from anywhere.
+
+```
+export PATH=$PATH:$(go env GOPATH)/bin
+source ~/.bash_profile
+```
 
 ### Building from Source
 
